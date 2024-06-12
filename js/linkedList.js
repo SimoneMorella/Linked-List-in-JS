@@ -60,4 +60,29 @@ export default class LinkedList {
     }
     prev.nextNode = null;
   }
+
+  contains(value) {
+    let temp = this.linkedHead;
+    while (temp.nextNode !== null) {
+        if (temp.value === value) return true;
+        temp = temp.nextNode;
+    }
+    return false;
+  }
+
+  find(value) {
+    let temp = this.linkedHead;
+    let index = 0;
+    while (temp.nextNode !== null) {
+        if (temp.value === value) return index;
+        temp = temp.nextNode;
+        index++;
+    }
+    return null;
+  }
+
+  toString() {
+    
+  }
+
 }
