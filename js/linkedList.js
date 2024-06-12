@@ -17,15 +17,14 @@ export default class LinkedList {
     else {
       let temp = this.linkedHead;
       while (temp.nextNode !== null) temp = temp.nextNode;
-      temp.next = new Node(value);
+      temp.nextNode = new Node(value);
     }
   }
 
   size() {
     let count = 0;
-    let temp = null;
-    if (this.linkedHead === null) return count;
-    while (temp.nextNode !== null) {
+    let temp = this.linkedHead;
+    while (temp !== null) {
       count++;
       temp = temp.nextNode;
     }
@@ -73,7 +72,7 @@ export default class LinkedList {
   find(value) {
     let temp = this.linkedHead;
     let index = 0;
-    while (temp.nextNode !== null) {
+    while (temp !== null) {
         if (temp.value === value) return index;
         temp = temp.nextNode;
         index++;
@@ -82,7 +81,41 @@ export default class LinkedList {
   }
 
   toString() {
-    
+    let temp = this.linkedHead;
+    let string = "";
+    while (temp !== null) {
+        string += `(${temp.value}) ->`;
+        temp = temp.nextNode;
+    }
+    return(string += "null");
+  }
+
+  insertAt(value, index) {
+    if (this.linkedHead === null) this.prepend(value);
+    else {
+        let curr = this.linkedHead;
+        let prev = null;
+        let newNode = new Node(value);
+        for (let i = 0; i < index; i++) {
+            prev = curr;
+            curr = curr.nextNode;
+            if (curr === null) break;
+        }
+        prev.nextNode = newNode;
+        newNode.nextNode = curr;
+    }
+  }
+
+  removeAt(index) {
+    if (this.linkedHead === null) return "List already empty";
+    let curr = this.linkedHead;
+    let prev = null;
+    for (let i = 0; i < index; i++) {
+        prev = curr;
+        curr = curr.nextNode;
+        if (curr === null) return "No item at the selected index";
+    }
+    prev.nextNode = curr.nextNode;
   }
 
 }
